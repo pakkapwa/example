@@ -109,7 +109,7 @@ func ProcessMessage(event Messaging) {
 }
 
 func MessagesEndpoint(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("-----------------------------------------------------MessagesEndpoint-------------------------------------------------------------------")
+	fmt.Println("-----------------------------------------------------MessagesEndpoint 55-------------------------------------------------------------------")
 	var callback Callback
 	json.NewDecoder(r.Body).Decode(&callback)
 	
