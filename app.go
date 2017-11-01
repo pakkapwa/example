@@ -61,6 +61,7 @@ type Payload struct {
 }
 
 func VerificationEndpoint(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("-----------------------------------------------------VerificationEndpoint-------------------------------------------------------------------")
 	challenge := r.URL.Query().Get("hub.challenge")
 	mode := r.URL.Query().Get("hub.mode")
 	token := r.URL.Query().Get("hub.verify_token")
@@ -75,6 +76,7 @@ func VerificationEndpoint(w http.ResponseWriter, r *http.Request) {
 }
 
 func ProcessMessage(event Messaging) {
+	fmt.Println("-----------------------------------------------------ProcessMessage-------------------------------------------------------------------")
 	fmt.Println("-----------------------------------------------------"+event.Sender.ID+"-------------------------------------------------------------------")
 	client := &http.Client{}
 	response := Response{
