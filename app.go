@@ -89,6 +89,8 @@ func ProcessMessage(event Messaging) {
 			Text:"champ ja",
 		},
 	}
+
+
 	body := new(bytes.Buffer)
 	json.NewEncoder(body).Encode(&response)
 	url := fmt.Sprintf(FACEBOOK_API, os.Getenv("PAGE_ACCESS_TOKEN"))
@@ -122,12 +124,12 @@ func MessagesEndpoint(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(string(j))
 	
 	if callback.Object == "page" {
-		for _, entry := range callback.Entry {
-			for _, event := range entry.Messaging {
-				ProcessMessage(event)
-			}
-		}
-		
+		ProcessMessage(callback.Entry[0].Messaging[0])
+		// for _, entry := range callback.Entry {
+		// 	for _, event := range entry.Messaging {
+		// 		ProcessMessage(event)
+		// 	}
+		// }
 	} 
 	w.WriteHeader(200)
 
