@@ -86,12 +86,7 @@ func ProcessMessage(event Messaging) {
 			ID: event.Sender.ID,
 		},
 		Message: Message{
-			Attachment: &Attachment{
-				Type: "image",
-				Payload: Payload{
-					URL: IMAGE,
-				},
-			},
+			Text:"champ ja",
 		},
 	}
 	body := new(bytes.Buffer)
