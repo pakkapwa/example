@@ -7,8 +7,9 @@ import (
 	"log"
 	"net/http"
 	"os"
-
 	"github.com/gorilla/mux"
+	"google.golang.org/appengine"
+	"google.golang.org/appengine/urlfetch"
 )
 
 const (
@@ -124,7 +125,28 @@ func MessagesEndpoint(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(string(j))
 	
 	if callback.Object == "page" {
-		ProcessMessage(callback.Entry[0].Messaging[0])
+		ctx := appengine.NewContext(r)
+		cli := urlfetch.Client(ctx)
+
+		url := fmt.Sprintf(FACEBOOK_API, os.Getenv("PAGE_ACCESS_TOKEN"))
+
+		request_message := Response{
+			Recipient: User{
+				ID: callback.Entry[0].Messaging[0].Sender.ID,
+			},
+			Message: Message{
+				Text:"champ ja",
+			},
+		}
+
+		jsonRequestPostBackMessage, _ := json.MarshalIndent(request_message, "", " ")
+		byteRequestPostBackMessage := []byte(jsonRequestPostBackMessage)
+		requestReaderPostBackMessage := bytes.NewReader(byteRequestPostBackMessage)
+
+		cli.Post(url, "application/json", requestReaderPostBackMessage)
+		
+
+		// ProcessMessage(callback.Entry[0].Messaging[0])
 		// for _, entry := range callback.Entry {
 		// 	for _, event := range entry.Messaging {
 		// 		ProcessMessage(event)
