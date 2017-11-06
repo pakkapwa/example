@@ -139,10 +139,11 @@ func MessagesEndpoint(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	port:=os.Getenv("PORT")
 	r := mux.NewRouter()
 	r.HandleFunc("/webhook", VerificationEndpoint).Methods("GET")
 	r.HandleFunc("/webhook", MessagesEndpoint).Methods("POST")
-	if err := http.ListenAndServe("0.0.0.0:8080", r); err != nil {
+	if err := http.ListenAndServe(":"+port, r); err != nil {
 		log.Fatal(err)
 	}
 }
