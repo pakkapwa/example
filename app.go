@@ -112,8 +112,10 @@ func ProcessMessage(event Messaging) {
 
 func MessagesEndpoint(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("-----------------------------------------------------MessagesEndpoint 55-------------------------------------------------------------------")
-	fmt.Println(r.Body)
-	
+
+	j, _ := json.MarshalIndent(r.Body, "", " ")
+	fmt.Println(string(j))
+
 	var callback Callback
 	json.NewDecoder(r.Body).Decode(&callback)
 	
@@ -123,12 +125,10 @@ func MessagesEndpoint(w http.ResponseWriter, r *http.Request) {
 				ProcessMessage(event)
 			}
 		}
-		w.WriteHeader(200)
-		w.Write([]byte("Got your message"))
-	} else {
-		w.WriteHeader(404)
-		w.Write([]byte("Message not supported"))
-	}
+		
+	} 
+	w.WriteHeader(200)
+
 }
 
 func main() {
