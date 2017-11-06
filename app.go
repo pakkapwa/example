@@ -113,11 +113,15 @@ func ProcessMessage(event Messaging) {
 func MessagesEndpoint(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("-----------------------------------------------------MessagesEndpoint 55-------------------------------------------------------------------")
 
-	j, _ := json.MarshalIndent(r.Body, "", " ")
-	fmt.Println(string(j))
+	// j, _ := json.MarshalIndent(r.Body, "", " ")
+	// fmt.Println(string(j))
 
 	var callback Callback
 	json.NewDecoder(r.Body).Decode(&callback)
+
+
+	j, _ := json.MarshalIndent(callback, "", " ")
+	fmt.Println(string(j))
 	
 	if callback.Object == "page" {
 		for _, entry := range callback.Entry {
