@@ -1,0 +1,3 @@
+package: memes-fb-bot
+import:
+- package: github.com/gorilla/mux
