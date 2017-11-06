@@ -117,7 +117,10 @@ func MessagesEndpoint(w http.ResponseWriter, r *http.Request) {
 	// fmt.Println(string(j))
 
 	var callback Callback
-	json.NewDecoder(r.Body).Decode(&callback)
+	err := json.NewDecoder(r.Body).Decode(&callback)
+	if err != nil {
+		log.Println("err decode : ", err)
+	}
 
 
 	j, _ := json.Marshal(callback)
