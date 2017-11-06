@@ -120,7 +120,7 @@ func MessagesEndpoint(w http.ResponseWriter, r *http.Request) {
 	json.NewDecoder(r.Body).Decode(&callback)
 
 
-	j, _ := json.MarshalIndent(callback, "", " ")
+	j, _ := json.Marshal(callback)
 	fmt.Println(string(j))
 	
 	if callback.Object == "page" {
